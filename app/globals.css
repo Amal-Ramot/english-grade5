@@ -1,0 +1,104 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Fredoka Variable', 'Rubik Variable', system-ui, sans-serif;
+  --font-sans: 'Rubik Variable', system-ui, sans-serif;
+  --color-ink: #2b2440;
+  --color-ink-soft: #6b6480;
+  --color-paper: #fff8ec;
+  --color-line: #eadfca;
+  --color-ok: #2fbf71;
+  --color-bad: #ff5d5d;
+}
+
+html {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  min-height: 100dvh;
+  font-family: var(--font-sans);
+  background-image: radial-gradient(#eadfca 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+button:disabled {
+  cursor: default;
+}
+:focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 3px;
+}
+
+/* chunky pressable surfaces — colours come from --c / --cd */
+.chunk {
+  background: var(--c, #fff);
+  border: 3px solid var(--color-ink);
+  box-shadow: 0 6px 0 var(--color-ink);
+  border-radius: 22px;
+  transition: transform 0.09s ease, box-shadow 0.09s ease, background 0.15s;
+}
+button.chunk:not(:disabled):hover,
+a.chunk:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0 var(--color-ink);
+}
+button.chunk:not(:disabled):active,
+a.chunk:active {
+  transform: translateY(5px);
+  box-shadow: 0 1px 0 var(--color-ink);
+}
+.chunk-sm {
+  border-width: 2.5px;
+  box-shadow: 0 4px 0 var(--color-ink);
+  border-radius: 16px;
+}
+
+.shake {
+  animation: shake 0.4s;
+}
+@keyframes shake {
+  20%, 60% { transform: translateX(-7px); }
+  40%, 80% { transform: translateX(7px); }
+}
+.float {
+  animation: float 5s ease-in-out infinite;
+}
+@keyframes float {
+  50% { transform: translateY(-14px) rotate(6deg); }
+}
+.wiggle:hover {
+  animation: wiggle 0.5s;
+}
+@keyframes wiggle {
+  25% { transform: rotate(-8deg) scale(1.1); }
+  75% { transform: rotate(8deg) scale(1.1); }
+}
+
+.flip {
+  perspective: 800px;
+}
+.flip-inner {
+  transition: transform 0.5s cubic-bezier(0.3, 1.4, 0.5, 1);
+  transform-style: preserve-3d;
+}
+.flip[data-on='true'] .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
